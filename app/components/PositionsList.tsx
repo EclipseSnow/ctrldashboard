@@ -19,7 +19,7 @@ import { fetchAccountBalanceWithoutUSDT_BTC } from '../services/accountbalancewi
 
 export default async function PositionsList() {
   // Fetch all data
-  const accountBalance = await fetchAccountBalance();
+  // const accountBalance = await fetchAccountBalance(); // Removed unused variable
   const accountBalanceWithoutUSDT = await fetchAccountBalanceWithoutUSDT();
   const portfoliomarginaccountinfo = await fetchPortfolioMarginAccountInfo();
   const positions: UMPositionInfo[] = await fetchUMPositionInfo();
@@ -41,8 +41,7 @@ export default async function PositionsList() {
   const usdtPrice_BTC = prices_BTC.get('USDTUSDT') ?? 1;
   const usdtNotional_BTC = usdtEntry_BTC ? parseFloat(usdtEntry_BTC.crossMarginAsset) * usdtPrice_BTC : 0;
 
-  // Calculate USDC spot
-  const usdcEntry_BTC = accountBalance_BTC.find(balance => balance.asset === 'USDC');
+  // const usdcEntry_BTC = accountBalance_BTC.find(balance => balance.asset === 'USDC'); // Removed unused variable
 
   // Calculate USDCUSDT futures amount
   const usdcusdtPosition = positions.find(position => position.symbol === 'USDCUSDT');
@@ -114,61 +113,25 @@ export default async function PositionsList() {
   const filteredPositions = positions.filter(position => position.symbol !== 'USDCUSDT');
   const filteredPositions_BTC = positions_BTC.filter(position => position.symbol !== 'USDCUSDT');
 
-  const futuresMap = new Map(
-    filteredPositions.map(position => [normalizeAsset(position.symbol), position.notional])
-  );
+  // const futuresMap = new Map( // Removed unused variable
+  //   filteredPositions.map(position => [normalizeAsset(position.symbol), position.notional])
+  // );
 
-  const futuresMap_BTC = new Map(
-    filteredPositions_BTC.map(position => [normalizeAsset_BTC(position.symbol), position.notional])
-  );
+  // const futuresMap_BTC = new Map( // Removed unused variable
+  //   filteredPositions_BTC.map(position => [normalizeAsset_BTC(position.symbol), position.notional])
+  // );
 
-  const spotMap = new Map(
-    accountBalanceWithNotional
-      .filter(position => position.asset !== 'USDC')
-      .map(position => [normalizeAsset(position.asset), position.totalNotionalValue])
-  );
+  // const spotMap = new Map( // Removed unused variable
+  //   accountBalanceWithNotional
+  //     .filter(position => position.asset !== 'USDC')
+  //     .map(position => [normalizeAsset(position.asset), position.totalNotionalValue])
+  // );
 
-  const spotMap_BTC = new Map(
-    accountBalanceWithNotional_BTC
-      .filter(position => position.asset !== 'USDC')
-      .map(position => [normalizeAsset_BTC(position.asset), position.totalNotionalValue])
-  );
-
-  // const combinedData = Array.from(new Set([...spotMap.keys(), ...futuresMap.keys()]))
-  //   .map(asset => {
-  //     const spot = parseFloat(String(spotMap.get(asset) || '0'));
-  //     const futures = parseFloat(String(futuresMap.get(asset) || '0'));
-  //     const netExposure = spot + futures;
-  //     const grossExposure = spot + Math.abs(futures);
-  //     return {
-  //       asset,
-  //       spot,
-  //       futures,
-  //       netExposure,
-  //       netExposurePercent: totalEquity > 0 ? (netExposure / totalEquity) * 100 : 0,
-  //       grossExposure,
-  //       grossExposurePercent: totalEquity > 0 ? (grossExposure / totalEquity) * 100 : 0,
-  //     };
-  //   })
-  //   .filter(position => position.asset !== 'BTC');
-
-  // const combinedData_BTC = Array.from(new Set([...spotMap_BTC.keys(), ...futuresMap_BTC.keys()]))
-  //   .map(asset => {
-  //     const spot = parseFloat(String(spotMap_BTC.get(asset) || '0'));
-  //     const futures = parseFloat(String(futuresMap_BTC.get(asset) || '0'));
-  //     const netExposure = spot + futures;
-  //     const grossExposure = spot + Math.abs(futures);
-  //     return {
-  //       asset,
-  //       spot,
-  //       futures,
-  //       netExposure,
-  //       netExposurePercent: totalEquity > 0 ? (netExposure / totalEquity) * 100 : 0,
-  //       grossExposure,
-  //       grossExposurePercent: totalEquity > 0 ? (grossExposure / totalEquity) * 100 : 0,
-  //     };
-  //   })
-  //   .filter(position => position.asset !== 'BTC');
+  // const spotMap_BTC = new Map( // Removed unused variable
+  //   accountBalanceWithNotional_BTC
+  //     .filter(position => position.asset !== 'USDC')
+  //     .map(position => [normalizeAsset_BTC(position.asset), position.totalNotionalValue])
+  // );
 
   // Get today's date
   const today = new Date();
