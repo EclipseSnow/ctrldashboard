@@ -34,8 +34,8 @@ export default async function PositionsList() {
   const prices_BTC = await fetchAllPrices_BTC(); // ✅ fetch spot prices once here
 
   // Calculate USDT notional value
-  const usdtEntry = accountBalance.find(balance => balance.asset === 'USDT');
-  const usdtPrice = prices.get('USDTUSDT') ?? 1;
+  // const usdtEntry = accountBalance.find(balance => balance.asset === 'USDT');
+  // const usdtPrice = prices.get('USDTUSDT') ?? 1;
 
   const usdtEntry_BTC = accountBalance_BTC.find(balance => balance.asset === 'USDT');
   const usdtPrice_BTC = prices_BTC.get('USDTUSDT') ?? 1;
@@ -134,41 +134,41 @@ export default async function PositionsList() {
       .map(position => [normalizeAsset_BTC(position.asset), position.totalNotionalValue])
   );
 
-  const combinedData = Array.from(new Set([...spotMap.keys(), ...futuresMap.keys()]))
-    .map(asset => {
-      const spot = parseFloat(String(spotMap.get(asset) || '0'));
-      const futures = parseFloat(String(futuresMap.get(asset) || '0'));
-      const netExposure = spot + futures;
-      const grossExposure = spot + Math.abs(futures);
-      return {
-        asset,
-        spot,
-        futures,
-        netExposure,
-        netExposurePercent: totalEquity > 0 ? (netExposure / totalEquity) * 100 : 0,
-        grossExposure,
-        grossExposurePercent: totalEquity > 0 ? (grossExposure / totalEquity) * 100 : 0,
-      };
-    })
-    .filter(position => position.asset !== 'BTC');
+  // const combinedData = Array.from(new Set([...spotMap.keys(), ...futuresMap.keys()]))
+  //   .map(asset => {
+  //     const spot = parseFloat(String(spotMap.get(asset) || '0'));
+  //     const futures = parseFloat(String(futuresMap.get(asset) || '0'));
+  //     const netExposure = spot + futures;
+  //     const grossExposure = spot + Math.abs(futures);
+  //     return {
+  //       asset,
+  //       spot,
+  //       futures,
+  //       netExposure,
+  //       netExposurePercent: totalEquity > 0 ? (netExposure / totalEquity) * 100 : 0,
+  //       grossExposure,
+  //       grossExposurePercent: totalEquity > 0 ? (grossExposure / totalEquity) * 100 : 0,
+  //     };
+  //   })
+  //   .filter(position => position.asset !== 'BTC');
 
-  const combinedData_BTC = Array.from(new Set([...spotMap_BTC.keys(), ...futuresMap_BTC.keys()]))
-    .map(asset => {
-      const spot = parseFloat(String(spotMap_BTC.get(asset) || '0'));
-      const futures = parseFloat(String(futuresMap_BTC.get(asset) || '0'));
-      const netExposure = spot + futures;
-      const grossExposure = spot + Math.abs(futures);
-      return {
-        asset,
-        spot,
-        futures,
-        netExposure,
-        netExposurePercent: totalEquity > 0 ? (netExposure / totalEquity) * 100 : 0,
-        grossExposure,
-        grossExposurePercent: totalEquity > 0 ? (grossExposure / totalEquity) * 100 : 0,
-      };
-    })
-    .filter(position => position.asset !== 'BTC');
+  // const combinedData_BTC = Array.from(new Set([...spotMap_BTC.keys(), ...futuresMap_BTC.keys()]))
+  //   .map(asset => {
+  //     const spot = parseFloat(String(spotMap_BTC.get(asset) || '0'));
+  //     const futures = parseFloat(String(futuresMap_BTC.get(asset) || '0'));
+  //     const netExposure = spot + futures;
+  //     const grossExposure = spot + Math.abs(futures);
+  //     return {
+  //       asset,
+  //       spot,
+  //       futures,
+  //       netExposure,
+  //       netExposurePercent: totalEquity > 0 ? (netExposure / totalEquity) * 100 : 0,
+  //       grossExposure,
+  //       grossExposurePercent: totalEquity > 0 ? (grossExposure / totalEquity) * 100 : 0,
+  //     };
+  //   })
+  //   .filter(position => position.asset !== 'BTC');
 
   // Get today's date
   const today = new Date();
@@ -231,7 +231,7 @@ export default async function PositionsList() {
                   <span>{formattedStartDate} - {formattedToday}</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL (BTC)</span>
+                  <span className="w-[140px] font-semibold">Period PnL</span>
                   <span>{navMetrics?.period_pnl}</span>
                 </div>
                 <div className="flex gap-2">
@@ -317,7 +317,7 @@ export default async function PositionsList() {
                   <span>{formattedStartDate} - {formattedToday}</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL</span>
+                  <span className="w-[140px] font-semibold">Period PnL (BTC)</span>
                   <span>{navMetrics_BTC?.period_pnl}</span>
                 </div>
                 <div className="flex gap-2">
