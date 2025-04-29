@@ -1,7 +1,7 @@
 import { fetchPortfolioMarginAccountInfo } from '../services/portfoliomarginaccountinfo_usdt';
 import { fetchUMPositionInfo } from '../services/currentcmposition_usdt';
 import { UMPositionInfo } from '../services/currentcmposition_usdt';
-import { fetchAccountBalance, fetchAllPrices } from '../services/accountbalance_usdt'; // ✅ now importing fetchAllPrices
+import { fetchAllPrices } from '../services/accountbalance_usdt'; // ✅ now importing fetchAllPrices
 import { fetchAccountBalanceWithoutUSDT } from '../services/accountbalancewithoutusdt_usdt';
 import EquityChart from './total_equity_usdt';
 import NAVChart from './nav_graph_usdt';
@@ -85,33 +85,9 @@ export default async function PositionsList() {
   const totalLeverage_BTC = totalEquity_BTC > 0 ? (spotValue_BTC + Math.abs(futuresValue_BTC)) / totalEquity_BTC : 0;
   const totalDirectionalLeverage_BTC = totalEquity_BTC > 0 ? (spotValue_BTC + futuresValue_BTC) / totalEquity_BTC : 0;
 
-  const normalizeAsset = (asset: string) => {
-    let normalized = asset.replace('USDT', '').toUpperCase();
-    if (normalized.startsWith('10000')) {
-      normalized = normalized.slice(5);
-    } else if (normalized.startsWith('1000')) {
-      normalized = normalized.slice(4);
-    } else if (normalized.endsWith('1000')) {
-      normalized = normalized.slice(0, -4);
-    }
-    return normalized;
-  };
-
-  const normalizeAsset_BTC = (asset: string) => {
-    let normalized = asset.replace('USDT', '').toUpperCase();
-    if (normalized.startsWith('10000')) {
-      normalized = normalized.slice(5);
-    } else if (normalized.startsWith('1000')) {
-      normalized = normalized.slice(4);
-    } else if (normalized.endsWith('1000')) {
-      normalized = normalized.slice(0, -4);
-    }
-    return normalized;
-  };
-
   // Filter positions
-  const filteredPositions = positions.filter(position => position.symbol !== 'USDCUSDT');
-  const filteredPositions_BTC = positions_BTC.filter(position => position.symbol !== 'USDCUSDT');
+  // const filteredPositions = positions.filter(position => position.symbol !== 'USDCUSDT');
+  // const filteredPositions_BTC = positions_BTC.filter(position => position.symbol !== 'USDCUSDT');
 
   // const futuresMap = new Map( // Removed unused variable
   //   filteredPositions.map(position => [normalizeAsset(position.symbol), position.notional])
