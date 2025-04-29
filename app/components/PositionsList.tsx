@@ -231,7 +231,7 @@ export default async function PositionsList() {
                   <span>{formattedStartDate} - {formattedToday}</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL</span>
+                  <span className="w-[140px] font-semibold">Period PnL (BTC)</span>
                   <span>{navMetrics?.period_pnl}</span>
                 </div>
                 <div className="flex gap-2">
