@@ -36,16 +36,13 @@ export default async function PositionsList() {
   // Calculate USDT notional value
   const usdtEntry = accountBalance.find(balance => balance.asset === 'USDT');
   const usdtPrice = prices.get('USDTUSDT') ?? 1;
-  const usdtNotional = usdtEntry ? parseFloat(usdtEntry.crossMarginAsset) * usdtPrice : 0;
 
   const usdtEntry_BTC = accountBalance_BTC.find(balance => balance.asset === 'USDT');
   const usdtPrice_BTC = prices_BTC.get('USDTUSDT') ?? 1;
   const usdtNotional_BTC = usdtEntry_BTC ? parseFloat(usdtEntry_BTC.crossMarginAsset) * usdtPrice_BTC : 0;
 
   // Calculate USDC spot
-
   const usdcEntry_BTC = accountBalance_BTC.find(balance => balance.asset === 'USDC');
-  const usdcSpotAmount_BTC = usdcEntry_BTC ? parseFloat(usdcEntry_BTC.crossMarginAsset) : 0;
 
   // Calculate USDCUSDT futures amount
   const usdcusdtPosition = positions.find(position => position.symbol === 'USDCUSDT');
@@ -78,14 +75,12 @@ export default async function PositionsList() {
   const futuresValue = positions.reduce((total, position) => total + parseFloat(position.notional), 0) - usdcusdtAmount;
 
   const totalEquity = parseFloat(portfoliomarginaccountinfo.actualEquity);
-  const totalInitialMargin = parseFloat(portfoliomarginaccountinfo.accountInitialMargin);
   const totalPositionalExposure = spotValue + futuresValue;
   const totalLeverage = totalEquity > 0 ? (spotValue + Math.abs(futuresValue)) / totalEquity : 0;
   const totalDirectionalLeverage = totalEquity > 0 ? (spotValue + futuresValue) / totalEquity : 0;
 
   const futuresValue_BTC = positions_BTC.reduce((total, position) => total + parseFloat(position.notional), 0) - usdcusdtAmount_BTC;
   const totalEquity_BTC = parseFloat(portfoliomarginaccountinfo_BTC.actualEquity);
-  const totalInitialMargin_BTC = parseFloat(portfoliomarginaccountinfo_BTC.accountInitialMargin);
   const totalPositionalExposure_BTC = spotValue_BTC + futuresValue_BTC;
   const totalPositionalExposureBTC = totalPositionalExposure_BTC / parseFloat(portfoliomarginaccountinfo_BTC.btcPrice);
   const totalLeverage_BTC = totalEquity_BTC > 0 ? (spotValue_BTC + Math.abs(futuresValue_BTC)) / totalEquity_BTC : 0;
@@ -174,22 +169,6 @@ export default async function PositionsList() {
       };
     })
     .filter(position => position.asset !== 'BTC');
-
-  const significantPositions = combinedData
-    .filter(position => position.grossExposurePercent > 2)
-    .sort((a, b) => a.netExposure - b.netExposure);
-
-  const significantPositions_BTC = combinedData_BTC
-    .filter(position => position.grossExposurePercent > 2)
-    .sort((a, b) => a.netExposure - b.netExposure);
-
-  const insignificantPositions = combinedData
-    .filter(position => position.grossExposurePercent <= 2)
-    .sort((a, b) => a.netExposure - b.netExposure);
-
-  const insignificantPositions_BTC = combinedData_BTC
-    .filter(position => position.grossExposurePercent <= 2)
-    .sort((a, b) => a.netExposure - b.netExposure);
 
   // Get today's date
   const today = new Date();
@@ -307,11 +286,11 @@ export default async function PositionsList() {
               <div className="flex flex-col space-y-2 w-1/2">
                 <div className="flex gap-2">
                   <span className="w-[200px] font-semibold">Total Equity (BTC)</span>
-                  <span>${totalEquity_BTC.toLocaleString()}</span>
+                  <span>{parseFloat(portfoliomarginaccountinfo_BTC.accountEquityinBTC).toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 })}</span>
                 </div>
                 <div className="flex gap-2">
                   <span className="w-[200px] font-semibold">Total Positional Exposure (BTC)</span>
-                  <span>{totalPositionalExposureBTC.toLocaleString()}</span>
+                  <span>{totalPositionalExposureBTC.toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 })}</span>
                 </div>
                 <div className="flex gap-2">
                   <span className="w-[200px] font-semibold">Total Maintenance Margin</span>
