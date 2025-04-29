@@ -117,7 +117,7 @@ const NAVChart = ({ color = 'blue' }) => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full max-w-4xl mx-auto">
       {chartData ? <Line data={chartData} options={options} /> : <p>Loading...</p>}
     </div>
   );
