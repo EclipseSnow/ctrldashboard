@@ -20,14 +20,13 @@ import 'chartjs-adapter-date-fns'; // If using date-fns
 
 ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-interface EquityData_BTC {
+interface EquityData {
   actual_equity: number;
   timestamp: string;
-  equity_in_btc: number;
 }
 
 // Define the type for the chart data
-interface ChartData_BTC {
+interface ChartData {
   labels: Date[];
   datasets: {
     label: string;
@@ -39,14 +38,14 @@ interface ChartData_BTC {
   }[];
 }
 
-const EquityChart_BTC: React.FC = () => {
-  const [chartData, setChartData] = useState<ChartData_BTC | null>(null);
+const EquityChart: React.FC = () => {
+  const [chartData, setChartData] = useState<ChartData | null>(null);
 
   useEffect(() => {
     const fetchEquityData = async () => {
       const { data, error } = await supabase
         .from('equity_data')
-        .select('*') as { data: EquityData_BTC[] | null, error: { message: string } | null };
+        .select('*') as { data: EquityData[] | null, error: { message: string } | null };
 
       if (error) {
         console.error('Error fetching data:', error.message);
@@ -59,12 +58,12 @@ const EquityChart_BTC: React.FC = () => {
         (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
       );
 
-      const formattedData: ChartData_BTC = {
+      const formattedData: ChartData = {
         labels: sorted.map((d) => new Date(d.timestamp)),
         datasets: [
           {
             label: 'Actual Equity',
-            data: sorted.map((d) => d.equity_in_btc),
+            data: sorted.map((d) => d.actual_equity),
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             tension: 0,
@@ -118,7 +117,7 @@ const EquityChart_BTC: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full h-full">
       {chartData ? <Line data={chartData} options={options} /> : <p>Loading...</p>}
     </div>
   );
