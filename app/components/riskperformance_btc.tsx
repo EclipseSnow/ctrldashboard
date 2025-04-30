@@ -47,7 +47,7 @@ export async function calculateNAVMetrics_BTC() {
   const daysSinceInception = (latestDate.getTime() - inceptionDate.getTime()) / (1000 * 60 * 60 * 24);
 
   // Calculate annualized return
-  const annualizedReturn_1Y = ((1 +pnlPercent/100) ** (365/daysSinceInception) -1)*100
+  const annualizedReturn_1Y = (pnlPercent / daysSinceInception) * 365
 
   // Max drawdown calculation using NAVs
   let peak = sorted[0].NAV;
