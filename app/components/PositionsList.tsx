@@ -231,7 +231,7 @@ export default async function PositionsList() {
               <div className="flex flex-col space-y-2 w-1/2 pl-4 border-l border-gray-200">
                 {[
                   ['Period', `${formattedStartDate} to ${formattedToday}`],
-                  ['Period PnL (BTC)', navMetrics_BTC?.period_pnl],
+                  ['Period PnL (BTC)', navMetrics_BTC?.period_pnl ? parseFloat(navMetrics_BTC.period_pnl).toFixed(8) : 'N/A'],
                   ['Period PnL %', `${navMetrics_BTC?.period_pnl_percent}%`],
                   ['Max Drawdown', `${navMetrics_BTC?.max_drawdown}%`],
                   ['Annualized Return (1Y)', `${navMetrics_BTC?.annualized_return_1Y}%`]
