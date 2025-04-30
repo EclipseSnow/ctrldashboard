@@ -118,13 +118,30 @@ export default async function PositionsList() {
   startDate.setDate(today.getDate() - 20);
   const formattedStartDate = startDate.toISOString().split('T')[0];
 
+  // Calculate the number of days since inception
+  const inceptionDate = new Date('2023-01-01'); // Replace with actual inception date
+  const daysSinceInception = Math.floor((today.getTime() - inceptionDate.getTime()) / (1000 * 60 * 60 * 24));
+
+  // Get the latest and initial NAV
+  const latestNAV = parseFloat(portfoliomarginaccountinfo.actualEquity); // Assuming this is the latest NAV
+  const initialNAV = 100000; // Replace with actual initial NAV
+
+  // Calculate the annualized return
+  const annualizedReturn = ((latestNAV - initialNAV) / initialNAV) * (365 / daysSinceInception);
+
+  // Function to get the current date and time in UTC+8
+  const getCurrentDateTimeInUTC8 = () => {
+    const options = { timeZone: 'Asia/Shanghai', hour12: false };
+    return new Date().toLocaleString('en-US', options);
+  };
+
   return (
     <div className="w-full p-4">
       <div className="bg-gray-50 shadow-md rounded-lg p-6 w-full flex flex-col space-y-5 ">
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-semibold">Binance USDT 01</h2>
-          <p className="text-sm text-gray-600">Current Date and Time: {new Date().toLocaleString()}</p>
+          <p className="text-sm text-gray-600">Current Date and Time: {getCurrentDateTimeInUTC8()}</p>
           <button className="text-sm text-blue-500 hover:underline">View Details &gt;&gt;</button>
         </div>
 
@@ -161,6 +178,10 @@ export default async function PositionsList() {
                   <span className="w-[200px] font-semibold">Total Directional Leverage</span>
                   <span>{totalDirectionalLeverage.toFixed(2)}</span>
                 </div>
+                <div className="flex gap-2">
+                  <span className="w-[200px] font-semibold">Annualized Return</span>
+                  <span>{annualizedReturn.toFixed(2)}%</span>
+                </div>
               </div>
 
               {/* Right: PnL Metrics */}
@@ -170,7 +191,7 @@ export default async function PositionsList() {
                   <span>{formattedStartDate} - {formattedToday}</span>
                 </div>
                 <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL</span>
+                  <span className="w-[140px] font-semibold">Period PnL (USDT)</span>
                   <span>{navMetrics?.period_pnl}</span>
                 </div>
                 <div className="flex gap-2">
@@ -180,6 +201,10 @@ export default async function PositionsList() {
                 <div className="flex gap-2">
                   <span className="w-[140px] font-semibold">Max Drawdown</span>
                   <span>{navMetrics?.max_drawdown}%</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-[140px] font-semibold">Annualized Return (1Y)</span>
+                  <span>{navMetrics?.annualized_return_1Y}%</span>
                 </div>
               </div>
 
@@ -210,7 +235,7 @@ export default async function PositionsList() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-semibold">Binance BTC 01</h2>
-          <p className="text-sm text-gray-600">Current Date and Time: {new Date().toLocaleString()}</p>
+          <p className="text-sm text-gray-600">Current Date and Time: {getCurrentDateTimeInUTC8()}</p>
           <button className="text-sm text-blue-500 hover:underline">View Details &gt;&gt;</button>
         </div>
 
@@ -266,6 +291,10 @@ export default async function PositionsList() {
                 <div className="flex gap-2">
                   <span className="w-[140px] font-semibold">Max Drawdown</span>
                   <span>{navMetrics_BTC?.max_drawdown}%</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-[140px] font-semibold">Annualized Return (1Y)</span>
+                  <span>{navMetrics_BTC?.annualized_return_1Y}%</span>
                 </div>
               </div>
 
