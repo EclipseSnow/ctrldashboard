@@ -135,14 +135,14 @@ export default async function PositionsList() {
         </div>
 
         {/* 3 vertical sections */}
-        <div className="flex flex-row w-full space-x-6">
+        <div className="flex flex-col lg:flex-row w-full space-y-4 lg:space-y-0 lg:space-x-6">
 
           {/* 1. Combined Left Card */}
-          <div className="w-[45%] bg-gray-50 p-4 rounded-md text-[15px] border flex items-center justify-center">
+          <div className="w-full lg:w-[45%] bg-gray-50 p-4 rounded-md text-[15px] border flex items-center justify-center">
             <div className="flex flex-row justify-center items-start w-full border-gray-300">
 
               {/* Left: Account Metrics */}
-              <div className="flex flex-col space-y-2 w-1/2 pr-4">
+              <div className="w-full lg:w-1/2 flex flex-col space-y-2 pr-0 lg:pr-4">
                 {[
                   ['Total Equity (USDT)', `$${totalEquity.toLocaleString()}`],
                   ['Total Positional Exposure (USDT)', `$${totalPositionalExposure.toLocaleString()}`],
@@ -157,9 +157,8 @@ export default async function PositionsList() {
                   </div>
                 ))}
               </div>
-
               {/* Right: PnL Metrics */}
-              <div className="flex flex-col space-y-2 w-1/2 pl-4 border-l border-gray-200">
+              <div className="w-full lg:w-1/2 flex flex-col space-y-2 pt-4 lg:pt-0 lg:pl-4 border-t lg:border-t-0 lg:border-l border-gray-200">
                 {[
                   ['Period', `${formattedStartDate} to ${formattedToday}`],
                   ['Period PnL (USDT)', navMetrics?.period_pnl],
@@ -176,15 +175,15 @@ export default async function PositionsList() {
             </div>
           </div>
           {/* 2. Charts Section (Right) */}
-          <div className="w-[55%] flex flex-row space-x-4">
+          <div className="w-full lg:w-[55%] flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
 
             {/* Net Assets Chart */}
-            <div className="w-1/2 h-[280px] bg-gray-50 p-2 rounded-md border flex items-center">
+            <div className="w-full lg:w-1/2 h-[280px] bg-gray-50 p-2 rounded-md border flex items-center">
               <EquityChart />
             </div>
 
             {/* NAV Chart */}
-            <div className="w-1/2 h-[280px] bg-gray-50 p-2 rounded-md border flex items-center">
+            <div className="w-full lg:w-1/2 h-[280px] bg-gray-50 p-2 rounded-md border flex items-center">
               <NAVChart color="orange" />
             </div>
 
