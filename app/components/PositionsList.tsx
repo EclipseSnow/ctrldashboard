@@ -138,65 +138,45 @@ export default async function PositionsList() {
         <div className="flex flex-row w-full space-x-6">
 
           {/* 1. Combined Left Card */}
-          <div className="w-[40%] bg-gray-50 p-4 rounded-md text-[15px] border flex items-center justify-center">
-            <div className="flex flex-row justify-center items-start space-x-16 w-full">
+          <div className="w-[45%] bg-gray-50 p-4 rounded-md text-[15px] border flex items-center justify-center">
+            <div className="flex flex-row justify-center items-start w-full border-gray-300">
 
               {/* Left: Account Metrics */}
-              <div className="flex flex-col space-y-2 w-1/2">
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Equity (USDT)</span>
-                  <span>${totalEquity.toLocaleString()}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Positional Exposure (USDT)</span>
-                  <span>${totalPositionalExposure.toLocaleString()}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Maintenance Margin</span>
-                  <span>${parseFloat(portfoliomarginaccountinfo.accountMaintMargin).toLocaleString()}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Initial Margin</span>
-                  <span>${parseFloat(portfoliomarginaccountinfo.accountInitialMargin).toLocaleString()}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Leverage</span>
-                  <span>{totalLeverage.toFixed(2)}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Directional Leverage</span>
-                  <span>{totalDirectionalLeverage.toFixed(2)}</span>
-                </div>
+              <div className="flex flex-col space-y-2 w-1/2 pr-4">
+                {[
+                  ['Total Equity (USDT)', `$${totalEquity.toLocaleString()}`],
+                  ['Total Positional Exposure (USDT)', `$${totalPositionalExposure.toLocaleString()}`],
+                  ['Total Maintenance Margin', `$${parseFloat(portfoliomarginaccountinfo.accountMaintMargin).toLocaleString()}`],
+                  ['Total Initial Margin', `$${parseFloat(portfoliomarginaccountinfo.accountInitialMargin).toLocaleString()}`],
+                  ['Total Leverage', totalLeverage.toFixed(2)],
+                  ['Total Directional Leverage', totalDirectionalLeverage.toFixed(2)]
+                ].map(([label, value]) => (
+                  <div className="flex gap-2" key={label}>
+                    <span className="w-[180px] font-semibold">{label}</span>
+                    <span>{value}</span>
+                  </div>
+                ))}
               </div>
 
               {/* Right: PnL Metrics */}
-              <div className="flex flex-col space-y-2 w-1/2">
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period</span>
-                  <span>{formattedStartDate} - {formattedToday}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL (USDT)</span>
-                  <span>{navMetrics?.period_pnl}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL %</span>
-                  <span>{navMetrics?.period_pnl_percent}%</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Max Drawdown</span>
-                  <span>{navMetrics?.max_drawdown}%</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Annualized Return (1Y)</span>
-                  <span>{navMetrics?.annualized_return_1Y}%</span>
-                </div>
+              <div className="flex flex-col space-y-2 w-1/2 pl-4 border-l border-gray-200">
+                {[
+                  ['Period', `${formattedStartDate} to ${formattedToday}`],
+                  ['Period PnL (USDT)', navMetrics?.period_pnl],
+                  ['Period PnL %', `${navMetrics?.period_pnl_percent}%`],
+                  ['Max Drawdown', `${navMetrics?.max_drawdown}%`],
+                  ['Annualized Return (1Y)', `${navMetrics?.annualized_return_1Y}%`]
+                ].map(([label, value]) => (
+                  <div className="flex gap-2" key={label}>
+                    <span className="w-[180px] font-semibold">{label}</span>
+                    <span>{value}</span>
+                  </div>
+                ))}
               </div>
-
             </div>
           </div>
           {/* 2. Charts Section (Right) */}
-          <div className="w-[60%] flex flex-row space-x-4">
+          <div className="w-[55%] flex flex-row space-x-4">
 
             {/* Net Assets Chart */}
             <div className="w-1/2 h-[280px] bg-gray-50 p-2 rounded-md border flex items-center">
@@ -213,7 +193,7 @@ export default async function PositionsList() {
         </div>
       </div>
 
-      <div className="h-4" /> 
+      <div className="h-4" />
       {/* Divider */}
 
       <div className="bg-gray-50 shadow-md rounded-lg p-6 w-full flex flex-col space-y-5 ">
@@ -228,65 +208,46 @@ export default async function PositionsList() {
         <div className="flex flex-row w-full space-x-6">
 
           {/* 1. Combined Left Card */}
-          <div className="w-[40%] bg-gray-50 p-4 rounded-md text-[15px] border flex items-center justify-center">
-            <div className="flex flex-row justify-center items-start space-x-16 w-full">
+          <div className="w-[45%] bg-gray-50 p-4 rounded-md text-[15px] border flex items-center justify-center">
+            <div className="flex flex-row justify-center items-start w-full border-gray-300">
 
-              {/* Left: Account Metrics */}
-              <div className="flex flex-col space-y-2 w-1/2">
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Equity (BTC)</span>
-                  <span>{parseFloat(portfoliomarginaccountinfo_BTC.accountEquityinBTC).toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 })}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Positional Exposure (BTC)</span>
-                  <span>{totalPositionalExposureBTC.toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 })}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Maintenance Margin</span>
-                  <span>${parseFloat(portfoliomarginaccountinfo_BTC.accountMaintMargin).toLocaleString()}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Initial Margin</span>
-                  <span>${parseFloat(portfoliomarginaccountinfo_BTC.accountInitialMargin).toLocaleString()}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Leverage</span>
-                  <span>{totalLeverage_BTC.toFixed(2)}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Total Directional Leverage</span>
-                  <span>{totalDirectionalLeverage_BTC.toFixed(2)}</span>
-                </div>
+              {/* Left: BTC Account Metrics */}
+              <div className="flex flex-col space-y-2 w-1/2 pr-4">
+                {[
+                  ['Total Equity (BTC)', parseFloat(portfoliomarginaccountinfo_BTC.accountEquityinBTC).toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 })],
+                  ['Total Positional Exposure (BTC)', totalPositionalExposureBTC.toLocaleString(undefined, { minimumFractionDigits: 8, maximumFractionDigits: 8 })],
+                  ['Total Maintenance Margin', `$${parseFloat(portfoliomarginaccountinfo_BTC.accountMaintMargin).toLocaleString()}`],
+                  ['Total Initial Margin', `$${parseFloat(portfoliomarginaccountinfo_BTC.accountInitialMargin).toLocaleString()}`],
+                  ['Total Leverage', totalLeverage_BTC.toFixed(2)],
+                  ['Total Directional Leverage', totalDirectionalLeverage_BTC.toFixed(2)]
+                ].map(([label, value]) => (
+                  <div className="flex gap-2" key={label}>
+                    <span className="w-[180px] font-semibold">{label}</span>
+                    <span>{value}</span>
+                  </div>
+                ))}
               </div>
 
-              {/* Right: PnL Metrics */}
-              <div className="flex flex-col space-y-2 w-1/2">
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period</span>
-                  <span>{formattedStartDate} - {formattedToday}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL (BTC)</span>
-                  <span>{navMetrics_BTC?.period_pnl}</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Period PnL %</span>
-                  <span>{navMetrics_BTC?.period_pnl_percent}%</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Max Drawdown</span>
-                  <span>{navMetrics_BTC?.max_drawdown}%</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="w-[140px] font-semibold">Annualized Return (1Y)</span>
-                  <span>{navMetrics_BTC?.annualized_return_1Y}%</span>
-                </div>
+              {/* Right: BTC PnL & Performance Metrics */}
+              <div className="flex flex-col space-y-2 w-1/2 pl-4 border-l border-gray-200">
+                {[
+                  ['Period', `${formattedStartDate} to ${formattedToday}`],
+                  ['Period PnL (BTC)', navMetrics_BTC?.period_pnl],
+                  ['Period PnL %', `${navMetrics_BTC?.period_pnl_percent}%`],
+                  ['Max Drawdown', `${navMetrics_BTC?.max_drawdown}%`],
+                  ['Annualized Return (1Y)', `${navMetrics_BTC?.annualized_return_1Y}%`]
+                ].map(([label, value]) => (
+                  <div className="flex gap-2" key={label}>
+                    <span className="w-[180px] font-semibold">{label}</span>
+                    <span>{value}</span>
+                  </div>
+                ))}
               </div>
 
             </div>
           </div>
           {/* 2. Charts Section (Right) */}
-          <div className="w-[60%] flex flex-row space-x-4">
+          <div className="w-[55%] flex flex-row space-x-4">
 
             {/* Net Assets Chart */}
             <div className="w-1/2 h-[280px] bg-gray-50 p-2 rounded-md border flex items-center">
