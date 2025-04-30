@@ -35,7 +35,6 @@ export async function calculateNAVMetrics_BTC() {
   );
 
   const latest = sorted[sorted.length - 1];
-  const initial = sorted[0];
   const originalEquity = latest.original_equity || 1; // Avoid division by zero
   const equity_in_btc = latest.equity_in_btc || 1;
   const pnl = equity_in_btc - originalEquity;
