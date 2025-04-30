@@ -14,9 +14,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import { supabase } from '../lib/supabase';
-import 'chartjs-adapter-date-fns'; // If using date-fns
-// or
-// import 'chartjs-adapter-moment'; // If using moment
+import 'chartjs-adapter-date-fns';
 
 ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -26,7 +24,6 @@ interface EquityData_BTC {
   equity_in_btc: number;
 }
 
-// Define the type for the chart data
 interface ChartData_BTC {
   labels: Date[];
   datasets: {
@@ -63,12 +60,12 @@ const EquityChart_BTC: React.FC = () => {
         labels: sorted.map((d) => new Date(d.timestamp)),
         datasets: [
           {
-            label: 'Actual Equity',
+            label: 'Equity in BTC',
             data: sorted.map((d) => d.equity_in_btc),
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0,
-            pointRadius: 4,
+            tension: 0.2,
+            pointRadius: 2,
           },
         ],
       };
@@ -81,13 +78,14 @@ const EquityChart_BTC: React.FC = () => {
 
   const options: ChartOptions<'line'> = {
     responsive: true,
+    maintainAspectRatio: false, // 👈 Crucial for dynamic sizing
     plugins: {
       legend: { display: false },
       title: {
         display: true,
-        text: 'Net Assets',
+        text: 'Net Assets (BTC)',
         font: {
-          size: 18,
+          size: 16,
         },
       },
     },
@@ -101,24 +99,19 @@ const EquityChart_BTC: React.FC = () => {
           },
         },
         ticks: {
-          stepSize: 1,
-        },
-        title: {
-          display: true,
-          // text: 'Timestamp',
+          maxTicksLimit: 6,
         },
       },
       y: {
         title: {
-          display: true,
-          // text: 'Actual Equity',
+          display: false,
         },
       },
     },
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full h-full"> {/* 👈 Ensure it fills the parent container */}
       {chartData ? <Line data={chartData} options={options} /> : <p>Loading...</p>}
     </div>
   );
