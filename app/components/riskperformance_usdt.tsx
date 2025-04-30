@@ -37,7 +37,7 @@ export async function calculateNAVMetrics() {
   const initial = sorted[0];
   const originalEquity = latest.original_equity || 1; // Avoid division by zero
   const pnl = latest.actual_equity - originalEquity;
-  const pnlPercent = (pnl / originalEquity) * 100;
+  const pnlPercent = (latest.NAV-1)*100;
 
   // Calculate the number of days since inception
   const inceptionDate = new Date(initial.timestamp);
@@ -45,7 +45,7 @@ export async function calculateNAVMetrics() {
   const daysSinceInception = (latestDate.getTime() - inceptionDate.getTime()) / (1000 * 60 * 60 * 24);
 
   // Calculate annualized return
-  const annualizedReturn_1Y = ((1 +pnlPercent/100) ** (365/daysSinceInception) -1)*100
+  const annualizedReturn_1Y = (pnlPercent / daysSinceInception) * 365
 
   // Max drawdown calculation using NAVs
   let peak = sorted[0].NAV;
