@@ -42,8 +42,7 @@ export async function calculateNAVMetrics() {
   // Calculate the number of days since inception
   const inceptionDate = new Date(initial.timestamp);
   const latestDate = new Date(latest.timestamp);
-  const daysSinceInception = (latestDate.getTime() - inceptionDate.getTime()) / (1000 * 60 * 60 * 24);
-
+  
   // Calculate annualized return
   const annualizedReturn_1Y = ((latest.NAV -1)) * 365;
 
