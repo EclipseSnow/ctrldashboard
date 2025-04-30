@@ -77,12 +77,12 @@ const NAVChart_BTC: React.FC<{ color?: string }> = ({ color = 'blue' }) => {
 
   const options: ChartOptions<'line'> = {
     responsive: true,
-    maintainAspectRatio: false, // ✅ Required for dynamic container height
+    maintainAspectRatio: false, // 👈 Important fix
     plugins: {
       legend: { display: false },
       title: {
         display: true,
-        text: 'NAV (BTC)',
+        text: 'NAV & Accum.NAV',
         font: {
           size: 16,
         },
@@ -111,7 +111,7 @@ const NAVChart_BTC: React.FC<{ color?: string }> = ({ color = 'blue' }) => {
   };
 
   return (
-    <div className="w-full h-full"> {/* ✅ Inherits height from parent */}
+    <div className="w-full h-full">
       {chartData ? <Line data={chartData} options={options} /> : <p>Loading...</p>}
     </div>
   );
