@@ -34,7 +34,6 @@ export async function calculateNAVMetrics() {
   );
 
   const latest = sorted[sorted.length - 1];
-  const initial = sorted[0];
   const originalEquity = latest.original_equity || 1; // Avoid division by zero
   const pnl = latest.actual_equity - originalEquity;
   const pnlPercent = (pnl / originalEquity) * 100;
