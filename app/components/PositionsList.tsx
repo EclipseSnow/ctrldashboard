@@ -118,17 +118,6 @@ export default async function PositionsList() {
   startDate.setDate(today.getDate() - 20);
   const formattedStartDate = startDate.toISOString().split('T')[0];
 
-  // Calculate the number of days since inception
-  const inceptionDate = new Date('2023-01-01'); // Replace with actual inception date
-  const daysSinceInception = Math.floor((today.getTime() - inceptionDate.getTime()) / (1000 * 60 * 60 * 24));
-
-  // Get the latest and initial NAV
-  const latestNAV = parseFloat(portfoliomarginaccountinfo.actualEquity); // Assuming this is the latest NAV
-  const initialNAV = 100000; // Replace with actual initial NAV
-
-  // Calculate the annualized return
-  const annualizedReturn = ((latestNAV - initialNAV) / initialNAV) * (365 / daysSinceInception);
-
   // Function to get the current date and time in UTC+8
   const getCurrentDateTimeInUTC8 = () => {
     const options = { timeZone: 'Asia/Shanghai', hour12: false };
