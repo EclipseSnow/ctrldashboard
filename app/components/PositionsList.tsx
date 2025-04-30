@@ -199,7 +199,9 @@ export default async function PositionsList() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-semibold">Binance BTC 01</h2>
-          <p className="text-sm text-gray-600">Current Date and Time: {getCurrentDateTimeInUTC8()}</p>
+          <p className="text-sm text-gray-600">
+            Current Date and Time: {getCurrentDateTimeInUTC8()} | BTC Price: ${parseFloat(portfoliomarginaccountinfo_BTC.btcPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </p>
           <button className="text-sm text-blue-500 hover:underline">View Details &gt;&gt;</button>
         </div>
 
