@@ -178,10 +178,6 @@ export default async function PositionsList() {
                   <span className="w-[200px] font-semibold">Total Directional Leverage</span>
                   <span>{totalDirectionalLeverage.toFixed(2)}</span>
                 </div>
-                <div className="flex gap-2">
-                  <span className="w-[200px] font-semibold">Annualized Return</span>
-                  <span>{annualizedReturn.toFixed(2)}%</span>
-                </div>
               </div>
 
               {/* Right: PnL Metrics */}
