@@ -41,10 +41,6 @@ export async function calculateNAVMetrics_BTC() {
   const pnl = equity_in_btc - originalEquity;
   const pnlPercent = (pnl / originalEquity) * 100;
 
-  // Calculate the number of days since inception
-  const inceptionDate = new Date(initial.timestamp);
-  const latestDate = new Date(latest.timestamp);
-
   // Calculate annualized return
   const annualizedReturn_1Y = ((latest.NAV - 1)) * 365;
 
