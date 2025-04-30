@@ -60,7 +60,7 @@ export async function calculateNAVMetrics_BTC() {
   }
 
   return {
-    period_pnl: pnl.toFixed(2),
+    period_pnl: pnl.toFixed(8),
     period_pnl_percent: pnlPercent.toFixed(2),
     max_drawdown: maxDrawdown.toFixed(2),
     annualized_return_1Y: annualizedReturn_1Y.toFixed(3)
