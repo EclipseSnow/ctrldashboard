@@ -113,10 +113,8 @@ export default async function PositionsList() {
   const today = new Date();
   const formattedToday = today.toISOString().split('T')[0]; // Format as YYYY-MM-DD
 
-  // Calculate a start date, e.g., 20 days before today
-  const startDate = new Date(today);
-  startDate.setDate(today.getDate() - 20);
-  const formattedStartDate = startDate.toISOString().split('T')[0];
+  const inceptionDate_usdt = navMetrics?.inceptionDate || 'N/A';
+  const inceptionDate_btc = navMetrics?.inceptionDate || 'N/A';
 
   // Function to get the current date and time in UTC+8
   const getCurrentDateTimeInUTC8 = () => {
@@ -160,7 +158,7 @@ export default async function PositionsList() {
               {/* Right: PnL Metrics */}
               <div className="w-full lg:w-1/2 flex flex-col space-y-2 pt-4 lg:pt-0 lg:pl-4 border-t lg:border-t-0 lg:border-l border-gray-200">
                 {[
-                  ['Period', `${formattedStartDate} to ${formattedToday}`],
+                  ['Period', `${inceptionDate_usdt} to ${formattedToday}`],
                   ['Period PnL (USDT)', navMetrics?.period_pnl],
                   ['Period PnL %', `${navMetrics?.period_pnl_percent}%`],
                   ['Max Drawdown', `${navMetrics?.max_drawdown}%`],
@@ -232,7 +230,7 @@ export default async function PositionsList() {
               {/* Right: BTC PnL & Performance Metrics */}
               <div className="flex flex-col space-y-2 w-1/2 pl-4 border-l border-gray-200">
                 {[
-                  ['Period', `${formattedStartDate} to ${formattedToday}`],
+                  ['Period', `${inceptionDate_btc} to ${formattedToday}`],
                   ['Period PnL (BTC)', navMetrics_BTC?.period_pnl ? parseFloat(navMetrics_BTC.period_pnl).toFixed(8) : 'N/A'],
                   ['Period PnL %', `${navMetrics_BTC?.period_pnl_percent}%`],
                   ['Max Drawdown', `${navMetrics_BTC?.max_drawdown}%`],
